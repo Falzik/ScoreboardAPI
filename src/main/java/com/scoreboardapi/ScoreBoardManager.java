@@ -2,6 +2,7 @@ package com.scoreboardapi;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -42,6 +43,15 @@ public class ScoreBoardManager {
         PlayerScoreBoard scoreBoard = new PlayerScoreBoard(player, title);
         playerScoreBoards.put(player.getUniqueId(), scoreBoard);
         return scoreBoard;
+    }
+
+    /**
+     * Returns a set of all global scoreboard IDs.
+     *
+     * @return Set of global scoreboard IDs
+     */
+    public Set<String> getGlobalScoreBoardIds() {
+        return globalScoreBoards.keySet();
     }
     
     /**
