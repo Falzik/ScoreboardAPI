@@ -1,0 +1,11 @@
+name: ScoreBoardAPI
+main: com.scoreboardapi.ScoreBoardPlugin
+version: 1.0.0
+api-version: '1.21'
+description: A comprehensive API for managing scoreboards in Minecraft
+author: Your Name
+commands:
+  scoreboard:
+    description: Scoreboard management command
+    usage: /scoreboard <subcommand>
+    permission: scoreboardapi.command
