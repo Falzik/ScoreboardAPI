@@ -1,11 +1,19 @@
 package com.scoreboardapi.scoreboard;
 
+import org.bukkit.entity.Hanging;
 import org.bukkit.entity.Player;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public class PlayerScoreBoard extends AbstractScoreBoard {
     
     private final Player player;
+
     private boolean showing;
+    private boolean save = false;
+
+    private static final HashMap<UUID, PlayerScoreBoard> playerScoreBoard = new HashMap<>();
     
 
     public PlayerScoreBoard(Player player, String title) {
@@ -13,7 +21,28 @@ public class PlayerScoreBoard extends AbstractScoreBoard {
         this.player = player;
         this.showing = false;
     }
-    
+
+    public PlayerScoreBoard(Player player, String title, boolean save) {
+        super(title);
+        this.player = player;
+        this.showing = false;
+
+        setSave(save);
+    }
+
+    public boolean isSave() {
+        return save;
+    }
+
+    public void setSave(boolean save) {
+        this.save = save;
+        playerScoreBoard.put(player.getUniqueId(), this);
+    }
+
+    public static PlayerScoreBoard getBoardBy(Player player) {
+        if(!playerScoreBoard.containsKey(player.getUniqueId())) return null;
+        return playerScoreBoard.get(player.getUniqueId());
+    }
 
     public Player getPlayer() {
         return player;
