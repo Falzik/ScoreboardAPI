@@ -14,8 +14,6 @@ public class PlayerScoreBoard extends AbstractScoreBoard {
     private boolean showing;
     private boolean save = false;
 
-    private boolean schedulerUpdate;
-
     private BukkitRunnable bukkitScheduler;
 
     private static final HashMap<UUID, PlayerScoreBoard> playerScoreBoard = new HashMap<>();
@@ -98,7 +96,7 @@ public class PlayerScoreBoard extends AbstractScoreBoard {
     }
 
     public BukkitRunnable getUpdateRunnable() {
-        if(!schedulerUpdate) return null;
+        if(bukkitScheduler == null) return null;
         return bukkitScheduler;
     }
 
