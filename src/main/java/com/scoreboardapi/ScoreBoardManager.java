@@ -5,12 +5,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.scoreboardapi.scoreboard.GlobalScoreBoard;
 import com.scoreboardapi.scoreboard.PlayerScoreBoard;
-import com.scoreboardapi.scoreboard.ScoreBoard;
 
 
 public class ScoreBoardManager {

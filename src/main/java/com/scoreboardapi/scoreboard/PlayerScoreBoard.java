@@ -1,7 +1,8 @@
 package com.scoreboardapi.scoreboard;
 
-import org.bukkit.entity.Hanging;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -12,6 +13,10 @@ public class PlayerScoreBoard extends AbstractScoreBoard {
 
     private boolean showing;
     private boolean save = false;
+
+    private boolean schedulerUpdate;
+
+    private BukkitRunnable bukkitScheduler;
 
     private static final HashMap<UUID, PlayerScoreBoard> playerScoreBoard = new HashMap<>();
     
@@ -78,12 +83,28 @@ public class PlayerScoreBoard extends AbstractScoreBoard {
     @Override
     public void destroy() {
         hide();
+        if(getUpdateRunnable() != null) {
+            bukkitScheduler.cancel();
+        }
+    }
+
+    public void schedulerUpdate(Plugin plugin) {
+        bukkitScheduler = (BukkitRunnable) new BukkitRunnable() {
+            @Override
+            public void run() {
+                update();
+            }
+        }.runTaskTimer(plugin, 0L, 20L);
+    }
+
+    public BukkitRunnable getUpdateRunnable() {
+        if(!schedulerUpdate) return null;
+        return bukkitScheduler;
     }
 
     public void setPlayerStat(String label, Object value, int index) {
         setLine(index, label + ": " + value);
     }
-    
 
     public void setPlayerStats(Object[][] stats, int startIndex) {
         int index = startIndex;

@@ -2,8 +2,6 @@ package com.scoreboardapi.scoreboard;
 
 import java.util.List;
 
-import org.bukkit.entity.Player;
-
 public interface ScoreBoard {
     
 
