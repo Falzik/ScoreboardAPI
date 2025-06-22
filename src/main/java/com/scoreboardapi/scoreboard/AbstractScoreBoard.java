@@ -1,6 +1,7 @@
 package com.scoreboardapi.scoreboard;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,7 +22,6 @@ public abstract class AbstractScoreBoard implements ScoreBoard {
     );
 
     private final Map<String, String> entryCache = new HashMap<>();
-    
 
     public AbstractScoreBoard(String title) {
         this.title = ChatColor.translateAlternateColorCodes('&', title);
@@ -51,6 +51,9 @@ public abstract class AbstractScoreBoard implements ScoreBoard {
     public void setLines(List<String> lines) {
         this.lines.clear();
         for (String line : lines) {
+            if(line.equalsIgnoreCase(" ")) {
+                line = UNIQUE_SUFFIXES.get(ThreadLocalRandom.current().nextInt(UNIQUE_SUFFIXES.size()));
+            }
             this.lines.add(ChatColor.translateAlternateColorCodes('&', line));
         }
         updateLines();
@@ -114,6 +117,10 @@ public abstract class AbstractScoreBoard implements ScoreBoard {
         }
 
         return text;
+    }
+
+    public Scoreboard getBukkitScoreboard() {
+        return bukkit;
     }
     
     @Override

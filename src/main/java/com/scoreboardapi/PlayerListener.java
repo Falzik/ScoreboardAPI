@@ -1,6 +1,7 @@
 package com.scoreboardapi;
 
 import com.scoreboardapi.scoreboard.GlobalScoreBoard;
+import com.scoreboardapi.scoreboard.PlayerScoreBoard;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,6 +37,11 @@ public class PlayerListener implements Listener {
         for (String id : plugin.getScoreBoardManager().getGlobalScoreBoardIds()) {
             GlobalScoreBoard globalScoreBoard = plugin.getScoreBoardManager().getGlobalScoreBoard(id);
             globalScoreBoard.removePlayer(player);
+        }
+
+        if(PlayerScoreBoard.getBoardBy(player) != null) {
+            PlayerScoreBoard playerScoreBoard = PlayerScoreBoard.getBoardBy(player);
+            playerScoreBoard.destroy();
         }
     }
 }

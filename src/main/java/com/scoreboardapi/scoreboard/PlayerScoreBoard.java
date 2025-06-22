@@ -79,7 +79,6 @@ public class PlayerScoreBoard extends AbstractScoreBoard {
     public void destroy() {
         hide();
     }
-    
 
     public void setPlayerStat(String label, Object value, int index) {
         setLine(index, label + ": " + value);
